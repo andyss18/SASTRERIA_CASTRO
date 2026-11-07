@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sastrería Castro - Escenarios IO</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/javascript-lp-solver@0.4.24/prod/solver.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <h2>Sastrería Castro - IO</h2>
+        <div>
+            <button onclick="cambiarVista('vista-principal')">🏠 Inicio / Dashboard</button>
+            <button class="btn-action" onclick="cambiarVista('vista-editar')">✏️ Editar Datos Base</button>
+        </div>
+    </nav>
+
+    <div class="container">
+        <!-- VISTA 1: TABLA Y CONTROLES -->
+        <section id="vista-principal" class="vista activa">
+            <div class="header-seccion">
+                <h3>Modelo de Situación Actual</h3>
+                <p>Datos base de producción, costos y utilidades unitarias.</p>
+            </div>
+            
+            <div class="table-responsive">
+                <table id="tabla-datos">
+                    <!-- Se llena con JS -->
+                </table>
+            </div>
+
+            <div class="controls-grid">
+                <div class="input-group">
+                    <label>Presupuesto Máximo Semanal (Q):</label>
+                    <input type="number" id="input-ppto" value="3500">
+                </div>
+                
+                <div class="time-controls-container">
+                    <label style="display:block; font-weight:bold; color:var(--primary); margin-bottom:8px;">Tiempo Disponible (Cálculo Automático):</label>
+                    <div class="time-inputs-row">
+                        <div class="sub-input">
+                            <label>Operarios:</label>
+                            <input type="number" id="input-personas" value="2" min="1">
+                        </div>
+                        <div class="sub-input">
+                            <label>Horas x Día:</label>
+                            <input type="number" id="input-horas" value="8" min="1" max="24">
+                        </div>
+                        <div class="sub-input">
+                            <label>Días x Semana:</label>
+                            <input type="number" id="input-dias" value="6" min="1" max="7">
+                        </div>
+                    </div>
+                    <div class="tiempo-total-display">
+                        Total Minutos Semanales: <span id="display-minutos">5760</span> min
+                    </div>
+                </div>
+
+                <button class="btn-calc" onclick="procesarEscenarios()">📊 Calcular Caminos Estratégicos</button>
+            </div>
+
+            <div id="resultados-section" style="display: none;">
+                <h2 style="text-align: center; color: var(--primary); margin-top: 40px;">Alternativas de Producción</h2>
+                <div class="scenarios-grid" id="grid-escenarios">
+                    <!-- Se llenará con JS -->
+                </div>
+                
+                <button class="btn-secret" onclick="toggleCalculos()">👁️ Mostrar Formulación y Cálculos (Triangulación)</button>
+                <div id="calculos-detallados"></div>
+            </div>
+        </section>
+
+        <!-- VISTA 2: EDICIÓN DE DATOS -->
+        <section id="vista-editar" class="vista">
+            <h3>Editar Variables del Modelo</h3>
+            <p>Modifica los costos, tiempos o precios. Al guardar, los nuevos cálculos usarán estos valores.</p>
+            <div id="form-edicion" class="grid-form">
+                <!-- Se llena con JS -->
+            </div>
+            <div class="acciones-form">
+                <button onclick="guardarEdicion()" class="btn-success">💾 Guardar Cambios</button>
+                <button onclick="cambiarVista('vista-principal')" class="btn-cancel">Cancelar</button>
+            </div>
+        </section>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
